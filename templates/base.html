@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{{ title or 'HeritageConnect' }}</title>
+  <link rel="stylesheet" href="/static/css/styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand" onclick="location.href='/'" role="button" tabindex="0">
+      <span class="brand-mark">HC</span>
+      <span class="brand-name">HeritageConnect</span>
+    </div>
+
+    <nav class="nav">
+      <a href="/archive">Archive</a>
+      <a href="/map">Map</a>
+      <a href="/contribute">Contribute</a>
+      {% if current_user.is_authenticated and current_user.is_admin %}
+        <a href="/admin/dashboard">Admin</a>
+      {% endif %}
+      {% if current_user.is_authenticated %}
+        <a href="/analytics/dashboard">Analytics</a>
+      {% endif %}
+    </nav>
+
+    <div class="auth">
+      <div class="lang">
+        <a href="/set-language/en">EN</a>
+        <a href="/set-language/hi">हिंदी</a>
+      </div>
+      {% if current_user.is_authenticated %}
+        <a href="/profile">{{ current_user.username }}</a>
+        <a href="/logout">Logout</a>
+      {% else %}
+        <a href="/login">Login</a>
+        <a href="/register">Register</a>
+      {% endif %}
+    </div>
+  </header>
+
+  <main class="container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="flash-wrap">
+          {% for category, message in messages %}
+            <div class="flash {{ category }}">{{ message }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="footer">
+    <div>Built for hackathon: Cultural Preservation & Education.</div>
+  </footer>
+</body>
+</html>
+

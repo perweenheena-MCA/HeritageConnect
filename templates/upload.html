@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="panel">
+  <h2>Contribute Heritage</h2>
+  <p class="muted">Upload stories, festivals, and regional traditions. Admin approval required.</p>
+
+  <form method="post" enctype="multipart/form-data" class="form">
+    <label>Content type</label>
+    <select name="content_type">
+      <option value="story">Story</option>
+      <option value="festival">Festival</option>
+      <option value="tradition">Tradition</option>
+      <option value="art">Regional Art</option>
+    </select>
+
+    <label>Title</label>
+    <input name="title" required />
+
+    <label>Description</label>
+    <textarea name="description" rows="6" placeholder="Write the story or describe the tradition..."></textarea>
+
+    <label>Category</label>
+    <select name="category_id">
+      <option value="">Auto (optional)</option>
+      {% for c in categories %}
+        <option value="{{ c.id }}">{{ c.name }}</option>
+      {% endfor %}
+    </select>
+
+    <label>Region</label>
+    <select name="region_id">
+      <option value="">Auto (optional)</option>
+      {% for r in regions %}
+        <option value="{{ r.id }}">{{ r.name }}</option>
+      {% endfor %}
+    </select>
+
+    <label>Image (optional)</label>
+    <input type="file" name="image" accept="image/*" />
+
+    <button class="btn primary" type="submit">Submit</button>
+  </form>
+</div>
+{% endblock %}
+

@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="panel">
+  <h2>Cultural Map (by Region)</h2>
+  <p class="muted">This demo uses a lightweight marker list. Click a region to view the archive filter.</p>
+
+  <div class="map-grid">
+    <div class="map-canvas">
+      <div class="map-placeholder">
+        <div class="map-title">Map Preview</div>
+        <div class="muted">(Hackathon-friendly; no external map tiles required.)</div>
+      </div>
+    </div>
+
+    <div class="map-list">
+      {% for r, count in region_stats %}
+        <a class="map-item" href="/archive?region_id={{ r.id }}">
+          <div>
+            <b>{{ r.name }}</b>
+            <div class="muted">{{ count }} approved posts</div>
+          </div>
+          <div class="map-dot" aria-hidden="true" data-lat="{{ r.lat }}" data-lng="{{ r.lng }}"></div>
+        </a>
+      {% else %}
+        <div class="muted">No regions available.</div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}
+

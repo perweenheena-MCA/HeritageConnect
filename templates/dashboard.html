@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="analytics">
+  <h2>Analytics Dashboard</h2>
+
+  <div class="grid-3">
+    <div class="card stat">
+      <div class="stat-num">{{ total_contributions }}</div>
+      <div class="muted">Total contributions</div>
+    </div>
+    <div class="card stat">
+      <div class="stat-num">{{ total_users }}</div>
+      <div class="muted">Total users</div>
+    </div>
+    <div class="card stat">
+      <div class="stat-num">{{ most_active_regions[0][1] if most_active_regions else 0 }}</div>
+      <div class="muted">Top region contributions</div>
+    </div>
+  </div>
+
+  <div class="two-col" style="margin-top:18px;">
+    <div>
+      <h3>Most viewed content</h3>
+      <div class="table">
+        {% for hc in most_viewed %}
+          <div class="table-row">
+            <div>
+              <b>{{ hc.title }}</b>
+              <div class="muted">Views: {{ hc.views }}</div>
+            </div>
+            <a class="link" href="/archive/{{ hc.id }}">Open</a>
+          </div>
+        {% else %}
+          <div class="muted">No content yet.</div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div>
+      <h3>Most active regions</h3>
+      <div class="table">
+        {% for r, count in most_active_regions %}
+          <div class="table-row">
+            <div>
+              <b>{{ r.name }}</b>
+              <div class="muted">{{ count }} approved posts</div>
+            </div>
+            <a class="link" href="/archive?region_id={{ r.id }}">View</a>
+          </div>
+        {% else %}
+          <div class="muted">No region stats.</div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+

@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="detail">
+  <div class="detail-head">
+    <h2>{{ hc.title }}</h2>
+    <div class="chip-row">
+      {% if hc.category_id %}<span class="chip">{{ hc.category.name if hc.category else '' }}</span>{% endif %}
+      {% if hc.region_id %}<span class="chip accent">{{ hc.region.name if hc.region else '' }}</span>{% endif %}
+      <span class="chip ai">AI-suggested tags</span>
+    </div>
+
+    <div class="detail-actions">
+      <form method="post" action="/heritage/{{ hc.id }}/like" style="display:inline;">
+        <button class="btn" type="submit">Like</button>
+      </form>
+      <form method="post" action="/heritage/{{ hc.id }}/bookmark" style="display:inline;">
+        <button class="btn" type="submit">Bookmark</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="detail-grid">
+    <div class="detail-main">
+      {% if hc.image_filename %}
+        <img class="detail-img" src="/static/uploads/{{ hc.image_filename }}" alt="{{ hc.title }}" />
+      {% endif %}
+      <p class="muted">{{ hc.description }}</p>
+
+      <div class="ai-box">
+        <h3>Suggested summary</h3>
+        <p>{{ hc.summary }}</p>
+        <h3>Suggested tags</h3>
+        <div class="tag-list">
+          {% for t in (hc.suggested_tags or '').split(',') %}
+            {% if t %}<span class="tag">{{ t.strip() }}</span>{% endif %}
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="comments">
+        <h3>Comments</h3>
+        <div class="comment-list">
+          {% for c in hc.comments %}
+            <div class="comment">
+              <div class="comment-meta">
+                <b>{{ c.author.username if c.author else 'User' }}</b>
+                <span class="muted">{{ c.created_at.strftime('%Y-%m-%d') }}</span>
+              </div>
+              <div>{{ c.body }}</div>
+            </div>
+          {% else %}
+            <div class="muted">Be the first to comment.</div>
+          {% endfor %}
+        </div>
+
+        {% if current_user.is_authenticated %}
+          <form method="post" action="/heritage/{{ hc.id }}/comment" class="form">
+            <textarea name="body" rows="3" placeholder="Write a comment..."></textarea>
+            <button class="btn primary" type="submit">Post comment</button>
+          </form>
+        {% else %}
+          <div class="muted">Login to comment.</div>
+        {% endif %}
+      </div>
+    </div>
+
+    <aside class="detail-side">
+      <div class="side-card">
+        <h3>Quick facts</h3>
+        <div class="kv"><span>Type</span><b>{{ hc.content_type|title }}</b></div>
+        <div class="kv"><span>Approved</span><b>{{ 'Yes' if hc.is_approved else 'No' }}</b></div>
+        <div class="kv"><span>Views</span><b>{{ hc.views }}</b></div>
+        <div class="kv"><span>Created</span><b>{{ hc.created_at.strftime('%Y-%m-%d') }}</b></div>
+      </div>
+    </aside>
+  </div>
+</div>
+{% endblock %}
+

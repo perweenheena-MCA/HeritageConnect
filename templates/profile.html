@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="auth-wrap">
+  <h2>Your Profile</h2>
+  <form method="post" class="form">
+    <label>Username</label>
+    <input name="username" value="{{ current_user.username }}" required />
+
+    <label>Email</label>
+    <input name="email" type="email" value="{{ current_user.email }}" required />
+
+    <label>Language</label>
+    <select name="language">
+      <option value="en" {% if current_user.language=='en' %}selected{% endif %}>English</option>
+      <option value="hi" {% if current_user.language=='hi' %}selected{% endif %}>हिंदी</option>
+    </select>
+
+    <button class="btn primary" type="submit">Save</button>
+  </form>
+</div>
+{% endblock %}
+

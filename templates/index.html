@@ -1,1 +1,89 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="hero">
+  <div class="hero-text">
+    <h1>Preserve culture. Share stories. Educate future generations.</h1>
+    <p>
+      HeritageConnect helps communities document traditions, folk tales, regional arts, festivals,
+      and makes them discoverable through a digital archive.
+    </p>
+    <div class="hero-cta">
+      <a class="btn primary" href="/archive">Explore the Archive</a>
+      <a class="btn" href="/contribute">Contribute Heritage</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-card">
+        <div class="stat-num">AI-lite</div>
+        <div class="stat-label">Smart categorization suggestions</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">Map-based</div>
+        <div class="stat-label">Discover heritage by region</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">Community</div>
+        <div class="stat-label">Likes, bookmarks & comments</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-art" aria-hidden="true">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+    <div class="hero-panel">Cultural Archive • Multilingual • Admin Approvals</div>
+  </div>
+</section>
+
+<section class="section">
+  <h2>Featured traditions</h2>
+  <p class="muted">Sample content seeded in the hackathon database.</p>
+  <div class="grid" style="margin-top:16px;">
+    {% for hc in [] %}
+    {% endfor %}
+    <div class="card">
+      <h3>The Legend of the Nanda Devi</h3>
+      <p>Folk tale from the mountains of Uttarakhand.</p>
+      <a class="link" href="/archive">Browse</a>
+    </div>
+    <div class="card">
+      <h3>Desert Drums: Jaisalmer Folk Festival</h3>
+      <p>Festival notes with music & night storytelling.</p>
+      <a class="link" href="/archive">Browse</a>
+    </div>
+    <div class="card">
+      <h3>Kambala: Tradition of Buffalo Racing</h3>
+      <p>Regional traditions and community rituals.</p>
+      <a class="link" href="/archive">Browse</a>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <h2>About HeritageConnect</h2>
+  <div class="split">
+    <div>
+      <p class="muted">
+        Culture is living memory. When documentation disappears, stories fade.
+        HeritageConnect makes it easy to contribute and discover local heritage content.
+      </p>
+      <ul class="bullets">
+        <li>Upload stories, festivals, and traditions</li>
+        <li>Get AI-suggested tags and summaries (hackathon stub)</li>
+        <li>Browse by category and region</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h3>Contact</h3>
+      <p class="muted">For hackathon demo purposes, this form is informational.</p>
+      <div class="form-row">
+        <input placeholder="Your name" />
+        <input placeholder="Email" />
+      </div>
+      <textarea placeholder="Message"></textarea>
+      <button class="btn primary" type="button">Send message</button>
+    </div>
+  </div>
+</section>
+{% endblock %}
 

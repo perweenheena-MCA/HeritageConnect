@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="archive-head">
+  <h2>Heritage Archive</h2>
+  <p class="muted">Browse by category & region. Search by title or description.</p>
+
+  <form class="filter-bar" method="get" action="/archive">
+    <input name="q" placeholder="Search..." value="{{ q }}" />
+
+    <select name="category_id">
+      <option value="">All categories</option>
+      {% for c in categories %}
+        <option value="{{ c.id }}" {% if selected_category_id|int == c.id %}selected{% endif %}>{{ c.name }}</option>
+      {% endfor %}
+    </select>
+
+    <select name="region_id">
+      <option value="">All regions</option>
+      {% for r in regions %}
+        <option value="{{ r.id }}" {% if selected_region_id|int == r.id %}selected{% endif %}>{{ r.name }}</option>
+      {% endfor %}
+    </select>
+
+    <input name="tag" placeholder="Tag contains..." value="{{ tag }}" />
+
+    <button class="btn primary" type="submit">Filter</button>
+  </form>
+</div>
+
+<div class="grid">
+  {% for hc in contents %}
+    <div class="card">
+      {% if hc.image_filename %}
+        <img class="card-img" src="/static/uploads/{{ hc.image_filename }}" alt="{{ hc.title }}" />
+      {% endif %}
+      <div class="card-body">
+        <div class="chip-row">
+          {% if hc.category_id %}
+            <span class="chip">{{ hc.category.name if hc.category else '' }}</span>
+          {% endif %}
+          {% if hc.region_id %}
+            <span class="chip accent">{{ hc.region.name if hc.region else '' }}</span>
+          {% endif %}
+          <span class="chip ai">AI-suggested</span>
+        </div>
+        <h3>{{ hc.title }}</h3>
+        <p class="muted">{{ hc.summary or hc.description[:160] }}</p>
+        <div class="meta">
+          <span>{{ hc.content_type|title }}</span>
+          <span>•</span>
+          <span>{{ hc.created_at.strftime('%Y-%m-%d') }}</span>
+        </div>
+        <a class="btn" href="/archive/{{ hc.id }}">View</a>
+      </div>
+    </div>
+  {% else %}
+    <div class="empty">No approved heritage content found.</div>
+  {% endfor %}
+</div>
+{% endblock %}
+

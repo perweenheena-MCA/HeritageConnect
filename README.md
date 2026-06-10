@@ -35,3 +35,8 @@ Then open: `http://127.0.0.1:5000`
 - Uploaded images are stored in `static/uploads/`.
 - AI categorization is a deterministic stub to keep this hackathon-friendly.
 
+### Screenshot
+
+<img width="960" height="540" alt="HeritageConnect" src="https://github.com/user-attachments/assets/d6902e10-c3fb-4c12-8f79-0c8d8e9ae70d" />
+
+
